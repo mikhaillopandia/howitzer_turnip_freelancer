@@ -12,17 +12,6 @@ module Turnip::Steps
     SignUpPage.open
   end
 
-  step 'I am user' do
-    @user = create(:user)
-  end
-
-  step 'I am logged in as admin user' do
-    @user = create(:user, :admin)
-    sleep 10
-    LoginPage.open
-    LoginPage.on { login_as(out(:@user).email, out(:@user).password) }
-  end
-
   #WHEN
 
   step 'I click :text menu item on :page page' do |text, page|
@@ -31,7 +20,7 @@ module Turnip::Steps
 
   step 'I click log in menu item on :page page' do |page|
     page.on { main_menu_section.choose_menu('Log In') }
-    end
+  end
 
   step 'I click sign up menu item on :page page' do |page|
     page.on { main_menu_section.choose_menu('Sign Up') }
@@ -53,7 +42,7 @@ module Turnip::Steps
 
   step 'I should be redirected to :page page' do |page|
     expect(page).to be_displayed
-    end
+  end
 
   step 'I should be redirected to sign up page' do
     expect(SignUpPage).to be_displayed
@@ -61,6 +50,10 @@ module Turnip::Steps
 
   step 'I should see following text on :page page:' do |page, string|
     page.on { expect(text).to include(string) }
+  end
+
+  step 'I should see following text on sign up page:' do |string|
+    SignUpPage.on { expect(text).to include(string) }
   end
 
   step 'I should not be logged in the system' do

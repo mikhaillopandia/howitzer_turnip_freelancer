@@ -17,6 +17,6 @@ gem 'capybara-screenshot'
 gem 'rspec', '~>3.2'
 gem 'turnip'
 
-# gem 'rubocop'
+gem 'rubocop'
 # gem 'pry'
 # gem 'pry-byebug'
