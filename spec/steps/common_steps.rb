@@ -1,3 +1,4 @@
+# rubocop:disable Style/ClassAndModuleChildren
 module Turnip::Steps
   # rubocop:enable Style/ClassAndModuleChildren
   attr_accessor :admin, :user
@@ -6,13 +7,13 @@ module Turnip::Steps
   # rubocop:disable Style/SymbolProc
   step ':page page of web application' do |page|
     page.open
-    end
+  end
 
   step 'sign up page of web application' do
     SignUpPage.open
   end
 
-  #WHEN
+  # WHEN
 
   step 'I click :text menu item on :page page' do |text, page|
     page.on { main_menu_section.choose_menu(text) }
@@ -30,7 +31,7 @@ module Turnip::Steps
     page.open
   end
 
-  #THEN
+  # THEN
 
   step 'I should be redirected to :page page' do |page|
     expect(page).to be_displayed
@@ -59,11 +60,9 @@ module Turnip::Steps
 
   step 'I should not be logged in the system' do
     expect(SignUpPage).to be_displayed
-
   end
 
   step 'I should be logged in the system' do
     DashboardPage.on { has_no_main_menu_section? }
   end
-
 end
