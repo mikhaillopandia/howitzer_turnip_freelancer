@@ -17,40 +17,37 @@ module AccountSteps
   end
 
   step 'I fill form on sign up page with blank data' do
-    SignUpPage.on { fill_form }
+    SignUpPage.on do
+      fill_form(username: nil,
+                email: nil,
+                password: nil,
+                looking_for: nil
+                )
+    end
   end
 
   #WHEN
-  step 'I fill form on sign up page with new data' do
+  step 'I fill form on sign up page with new correct data' do
     s = self
     s.user = build(:user)
     SignUpPage.on do
       fill_form(username: s.user.name,
                 email: s.user.email,
                 password: s.user.password,
-                looking_for_work_radio: s.user.looking_for_work_radio
+                looking_for: s.user.looking_for
                 )
     end
   end
   
-  step 'I fill form on sign up page with not email data' do
+  step 'I fill form on sign up page with incorrect data' do
     s = self
     s.user = build(:user)
     SignUpPage.on do
-      fill_form(email: 'test.123456789',
-                password: s.user.password,
-                looking_for_work_radio: s.user.looking_for_work_radio
+      fill_form(username: '1',
+                email: 'test.123456789',
+                password: '1',
+                looking_for: 'work'
                 )
-    end
-  end
-  
-  step 'I fill form on sign up page with short password' do
-    s = self
-    s.user = build(:user)
-    SignUpPage.on do
-      fill_form(password: '1',
-                looking_for_work_radio: s.user.looking_for_work_radio
-      )
     end
   end
 
