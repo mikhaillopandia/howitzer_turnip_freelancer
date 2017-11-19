@@ -8,14 +8,6 @@ module AccountSteps
     ConfirmationEmployerInstructionEmail.find_by_recipient(user.email).confirm_my_employer_account
   end
 
-  step 'I select (.+) on (.+) page' do |_what, page|
-    page.on { looking_to_hire_radio_element.click }
-  end
-
-  step 'I select looking to hire radio on sign up page' do
-    SignUpPage.on { looking_to_hire_radio_element.click }
-  end
-
   step 'I fill form on sign up page with blank data' do
     SignUpPage.on do
       fill_form(username: nil,
@@ -26,14 +18,14 @@ module AccountSteps
   end
 
   # WHEN
-  step 'I fill form on sign up page with new correct data' do
+  step 'I fill form on sign up page with new correct data as :who' do |who|
     s = self
     s.user = build(:user)
     SignUpPage.on do
       fill_form(username: s.user.name,
                 email: s.user.email,
                 password: s.user.password,
-                looking_for: s.user.looking_for)
+                looking_for: who)
     end
   end
 
@@ -57,9 +49,6 @@ module AccountSteps
   end
 
   # THEN
-  step 'I should receive (.+) email' do |email|
-    email.as_email_class.find_by_recipient(@user.email)
-  end
 
   step 'I should receive confirmation instruction email' do
     ConfirmationInstructionEmail.find_by_recipient(user.email)

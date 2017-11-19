@@ -12,7 +12,7 @@ Feature: Sign up
 
   Scenario: user can sign up with correct credentials as employee
     Given sign up page of web application
-    When I fill form on sign up page with new correct data
+    When I fill form on sign up page with new correct data as employee
     And I submit form on sign up page
     Then I should be redirected to skills page
     And I should receive confirmation instruction email
@@ -28,8 +28,7 @@ Feature: Sign up
 
   Scenario: user can sign up with correct credentials as employer
     Given sign up page of web application
-    When I fill form on sign up page with new correct data
-    And I select looking to hire radio on sign up page
+    When I fill form on sign up page with new correct data as employer
     And I submit form on sign up page
     Then I should be redirected to onboard page
     And I should receive confirmation employer instruction email
@@ -47,10 +46,9 @@ Feature: Sign up
     When I fill form on sign up page with blank data
     And I submit form on sign up page
     Then I should see following messages on sign up page:
-      | type  | message                       |
-      | error | Please enter an email address |
-      | error | Please enter a username       |
-      | error | Please enter a password       |
+      | Please enter an email address |
+      | Please enter a username       |
+      | Please enter a password       |
 
   @p1
   Scenario: user can not sign up with incorrect data
@@ -59,6 +57,6 @@ Feature: Sign up
     And I submit form on sign up page
     Then I should not be logged in the system
     Then I should see following messages on sign up page:
-      | type  | message                               |
-      | error | Please enter a valid email address    |
-      | error | Password must be 6 characters minimum |
+      | Please enter a valid email address.   |
+      | Username must be 3-16 characters      |
+      | Password must be 6 characters minimum |

@@ -50,11 +50,9 @@ module Turnip::Steps
   end
 
   step 'I should see following messages on sign up page:' do |table|
-    res = table.raw.map do |array|
-      array.last if array.first == 'error'
-    end
-    res.compact.each do |str|
-      SignUpPage.on { wait_for(text).to include(str) }
+    str = table.raw.map(&:first)
+    SignUpPage.on do
+      wait_for(text).to include(str.compact.join(' '))
     end
   end
 
@@ -63,6 +61,6 @@ module Turnip::Steps
   end
 
   step 'I should be logged in the system' do
-    DashboardPage.on { has_no_main_menu_section? }
+    DashboardPage.on { is_expected.to have_no_main_menu_section }
   end
 end
